@@ -138,7 +138,7 @@ export function OutreachArea({ template, profileDescription }: Props) {
         ) : (
           <>
             <Upload className="h-8 w-8 text-muted-foreground mb-2" />
-            <p className="text-sm text-muted-foreground">LinkedIn-Screenshot hochladen</p>
+            <p className="text-sm text-muted-foreground">Screenshot einfügen (Strg+V) oder hier hochladen</p>
           </>
         )}
       </div>
