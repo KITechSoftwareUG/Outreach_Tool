@@ -1,1 +1,4 @@
 project_id = "liwsbhdsgkzskbpxjvzm"
+
+[functions.analyze-profile]
+verify_jwt = false
