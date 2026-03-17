@@ -9,7 +9,6 @@ import { useAuth } from "@/hooks/useAuth";
 import { toast } from "@/hooks/use-toast";
 import type { Tables } from "@/integrations/supabase/types";
 import { Separator } from "@/components/ui/separator";
-import { DailyLeads } from "@/components/DailyLeads";
 
 type SenderProfile = Tables<"sender_profiles">;
 
@@ -97,8 +96,6 @@ export default function Index() {
                   template={activeProfile.template_message}
                   profileDescription={activeProfile.description ?? ""}
                 />
-                <Separator />
-                <DailyLeads />
               </>
             ) : (
               <div className="flex items-center justify-center h-64 text-muted-foreground">

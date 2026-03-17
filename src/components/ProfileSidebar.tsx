@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Plus, User, LogOut, ChevronDown, ChevronRight, Workflow } from "lucide-react";
+import { Plus, User, LogOut, ChevronDown, ChevronRight, Workflow, BarChart3 } from "lucide-react";
 import { useAuth } from "@/hooks/useAuth";
 import { Button } from "@/components/ui/button";
 import {
@@ -15,6 +15,7 @@ import {
   SidebarGroupContent,
 } from "@/components/ui/sidebar";
 import { PipelineOverview } from "@/components/PipelineOverview";
+import { DailyLeads } from "@/components/DailyLeads";
 import type { Tables } from "@/integrations/supabase/types";
 
 type SenderProfile = Tables<"sender_profiles">;
@@ -29,6 +30,7 @@ interface Props {
 export function ProfileSidebar({ profiles, activeId, onSelect, onCreate }: Props) {
   const { signOut } = useAuth();
   const [pipelineOpen, setPipelineOpen] = useState(false);
+  const [dailyOpen, setDailyOpen] = useState(false);
 
   return (
     <Sidebar>
@@ -59,6 +61,23 @@ export function ProfileSidebar({ profiles, activeId, onSelect, onCreate }: Props
               </SidebarMenuItem>
             </SidebarMenu>
           </SidebarGroupContent>
+        </SidebarGroup>
+
+        {/* Daily Leads - collapsed */}
+        <SidebarGroup>
+          <button
+            onClick={() => setDailyOpen(!dailyOpen)}
+            className="flex w-full items-center gap-2 px-3 py-1.5 text-xs font-medium text-sidebar-foreground/50 hover:text-sidebar-foreground/70 transition-colors"
+          >
+            {dailyOpen ? <ChevronDown className="h-3 w-3" /> : <ChevronRight className="h-3 w-3" />}
+            <BarChart3 className="h-3 w-3" />
+            Heutige Leads
+          </button>
+          {dailyOpen && (
+            <SidebarGroupContent className="px-2 pb-2">
+              <DailyLeads />
+            </SidebarGroupContent>
+          )}
         </SidebarGroup>
 
         {/* Email Pipeline - collapsed */}
