@@ -1,4 +1,5 @@
-import { Plus, User, LogOut } from "lucide-react";
+import { useState } from "react";
+import { Plus, User, LogOut, ChevronDown, ChevronRight, Workflow } from "lucide-react";
 import { useAuth } from "@/hooks/useAuth";
 import { Button } from "@/components/ui/button";
 import {
@@ -13,6 +14,7 @@ import {
   SidebarGroupLabel,
   SidebarGroupContent,
 } from "@/components/ui/sidebar";
+import { PipelineOverview } from "@/components/PipelineOverview";
 import type { Tables } from "@/integrations/supabase/types";
 
 type SenderProfile = Tables<"sender_profiles">;
@@ -26,6 +28,7 @@ interface Props {
 
 export function ProfileSidebar({ profiles, activeId, onSelect, onCreate }: Props) {
   const { signOut } = useAuth();
+  const [pipelineOpen, setPipelineOpen] = useState(false);
 
   return (
     <Sidebar>
@@ -56,6 +59,23 @@ export function ProfileSidebar({ profiles, activeId, onSelect, onCreate }: Props
               </SidebarMenuItem>
             </SidebarMenu>
           </SidebarGroupContent>
+        </SidebarGroup>
+
+        {/* Email Pipeline - collapsed */}
+        <SidebarGroup>
+          <button
+            onClick={() => setPipelineOpen(!pipelineOpen)}
+            className="flex w-full items-center gap-2 px-3 py-1.5 text-xs font-medium text-sidebar-foreground/50 hover:text-sidebar-foreground/70 transition-colors"
+          >
+            {pipelineOpen ? <ChevronDown className="h-3 w-3" /> : <ChevronRight className="h-3 w-3" />}
+            <Workflow className="h-3 w-3" />
+            Email-Pipeline (CLI)
+          </button>
+          {pipelineOpen && (
+            <SidebarGroupContent className="px-2 pb-2">
+              <PipelineOverview />
+            </SidebarGroupContent>
+          )}
         </SidebarGroup>
       </SidebarContent>
       <SidebarFooter className="p-2">

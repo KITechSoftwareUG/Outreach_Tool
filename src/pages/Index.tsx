@@ -9,7 +9,6 @@ import { useAuth } from "@/hooks/useAuth";
 import { toast } from "@/hooks/use-toast";
 import type { Tables } from "@/integrations/supabase/types";
 import { Separator } from "@/components/ui/separator";
-import { PipelineOverview } from "@/components/PipelineOverview";
 
 type SenderProfile = Tables<"sender_profiles">;
 
@@ -104,11 +103,6 @@ export default function Index() {
               </div>
             )}
           </main>
-          <aside className="border-t bg-muted/30 p-6">
-            <div className="max-w-2xl mx-auto">
-              <PipelineOverview />
-            </div>
-          </aside>
         </div>
       </div>
       <CreateProfileDialog
