@@ -1,4 +1,5 @@
 import { serve } from "https://deno.land/std@0.168.0/http/server.ts";
+import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
 
 const corsHeaders = {
   "Access-Control-Allow-Origin": "*",
@@ -12,65 +13,36 @@ serve(async (req) => {
   }
 
   try {
-    const OUTREACH_SUPABASE_URL = Deno.env.get("OUTREACH_SUPABASE_URL");
-    const OUTREACH_SUPABASE_KEY = Deno.env.get("OUTREACH_SUPABASE_KEY");
-
-    if (!OUTREACH_SUPABASE_URL || !OUTREACH_SUPABASE_KEY) {
-      throw new Error(
-        `Missing secrets: URL=${!!OUTREACH_SUPABASE_URL}, KEY=${!!OUTREACH_SUPABASE_KEY}`
-      );
-    }
-
-    const dbHeaders = {
-      apikey: OUTREACH_SUPABASE_KEY,
-      Authorization: `Bearer ${OUTREACH_SUPABASE_KEY}`,
-      Accept: "application/json",
-    };
+    const supabaseUrl = Deno.env.get("SUPABASE_URL")!;
+    const serviceRoleKey = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!;
+    const supabase = createClient(supabaseUrl, serviceRoleKey);
 
     const today = new Date().toISOString().slice(0, 10);
 
     // Fetch leads enriched today
-    const url = `${OUTREACH_SUPABASE_URL}/rest/v1/leads?` +
-      `select=lead_id,first_name,last_name,email,company,status,enriched_at,email_sent,email_sent_at` +
-      `&enriched_at=not.is.null` +
-      `&enriched_at=gte.${today}T00:00:00Z` +
-      `&order=enriched_at.desc` +
-      `&limit=50`;
+    const { data: leads, count: todayCount, error } = await supabase
+      .from("leads")
+      .select("lead_id,first_name,last_name,email,company,status,enriched_at,email_sent,email_sent_at", { count: "exact" })
+      .not("enriched_at", "is", null)
+      .gte("enriched_at", `${today}T00:00:00Z`)
+      .order("enriched_at", { ascending: false })
+      .limit(50);
 
-    const resp = await fetch(url, {
-      headers: { ...dbHeaders, Prefer: "count=exact" },
-    });
-
-    if (!resp.ok) {
-      const errText = await resp.text();
-      console.error("Outreach DB error:", resp.status, errText);
-      throw new Error(`DB ${resp.status}: ${errText.slice(0, 200)}`);
-    }
-
-    const leads = await resp.json();
-    const contentRange = resp.headers.get("Content-Range") || "*/0";
-    const todayCount = parseInt(contentRange.split("/").pop() || "0", 10);
+    if (error) throw error;
 
     // Count pending enrichment
-    const pendingUrl = `${OUTREACH_SUPABASE_URL}/rest/v1/leads?` +
-      `select=lead_id` +
-      `&enriched=eq.false` +
-      `&apollo_id=not.is.null` +
-      `&limit=1`;
-
-    const pendingResp = await fetch(pendingUrl, {
-      headers: { ...dbHeaders, Prefer: "count=exact" },
-    });
-
-    const pendingRange = pendingResp.headers.get("Content-Range") || "*/0";
-    const pendingLeads = parseInt(pendingRange.split("/").pop() || "0", 10);
+    const { count: pendingLeads } = await supabase
+      .from("leads")
+      .select("lead_id", { count: "exact", head: true })
+      .eq("enriched", false)
+      .not("apollo_id", "is", null);
 
     return new Response(
       JSON.stringify({
         today,
-        todayCount,
-        leads,
-        stats: { pending: pendingLeads },
+        todayCount: todayCount || 0,
+        leads: leads || [],
+        stats: { pending: pendingLeads || 0 },
       }),
       { status: 200, headers: { ...corsHeaders, "Content-Type": "application/json" } }
     );

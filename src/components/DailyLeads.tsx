@@ -3,7 +3,7 @@ import { RefreshCw, Mail, AlertTriangle, CheckCircle2, XCircle, Clock } from "lu
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Card } from "@/components/ui/card";
-import { supabase } from "@/integrations/supabase/client";
+const DAILY_LEADS_URL = "https://bbddgyksfmtvvoayxtxp.supabase.co/functions/v1/daily-leads";
 
 interface Lead {
   lead_id: number;
@@ -43,8 +43,9 @@ export function DailyLeads() {
     setLoading(true);
     setError(null);
     try {
-      const { data: result, error: fnError } = await supabase.functions.invoke("daily-leads");
-      if (fnError) throw fnError;
+      const resp = await fetch(DAILY_LEADS_URL);
+      if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
+      const result = await resp.json();
       if (result.error) throw new Error(result.error);
       setData(result);
     } catch (err: any) {
