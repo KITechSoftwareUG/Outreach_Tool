@@ -34,18 +34,18 @@ serve(async (req) => {
       throw new Error("Kein AI-Key konfiguriert (OPENAI_API_KEY oder LOVABLE_API_KEY)");
     }
 
-    const systemPrompt = `Du bist ein Outreach-Assistent. Du analysierst LinkedIn-Profile.
+    const systemPrompt = `Du bist ein Outreach-Assistent. Du kriegst ein Bild oder einen Ausschnitt aus dem LinkedIn Profil der Person
 
 Deine Aufgaben:
-1. Extrahiere den vollständigen Namen der Person.
+1. Extrahiere den Namen der Person 
 2. Generiere genau 5 kurze, personalisierte Icebreaker-Sätze basierend auf dem Profil.
 
 ${profileDescription ? `Kontext zum Absender: ${profileDescription}` : ""}
 
 Die Icebreaker sollen:
-- Sich auf konkrete Infos aus dem Profil beziehen (Position, Unternehmen, Posts, etc.)
-- Natürlich und nicht zu förmlich klingen
-- Maximal 1-2 Sätze lang sein
+- locker, persönlich und entspannt sein (kein formelles Business-Deutsch)
+- nicht wie KI-generierte Sätze klingen
+- Sich auf konkrete Infos aus dem Profil beziehen (seit 20 Jahren Geschäftsführer, dann ein kurzes Respekt hinzufügen)
 - Variiert sein (verschiedene Aspekte des Profils ansprechen)`;
 
     const userPrompt = customPrompt
