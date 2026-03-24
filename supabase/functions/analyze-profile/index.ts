@@ -72,9 +72,6 @@ SCHLECHTE Beispiele (SO NIEMALS):
 - "Ich könnte dir helfen bei..." ❌ ANGEBOT  
 - "Mir ist aufgefallen dass..." ❌ FLOSKEL
 - "Das klingt spannend, da..." ❌ ZU OFFEN`;
-- "Mir ist aufgefallen, dass du im Bereich X tätig bist" (FLOSKEL!)
-- "Das klingt spannend, da gibt es sicher viel zu erzählen" (ZU OFFEN!)
-- "Dein Werdegang ist beeindruckend und zeigt dass..." (ZU LANG, ZU OFFEN!)`;
 
     const userPrompt = customPrompt
       ? `Analysiere dieses LinkedIn-Profil und generiere Icebreaker mit folgendem Fokus: ${customPrompt}`
