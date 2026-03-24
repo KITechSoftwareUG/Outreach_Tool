@@ -96,7 +96,7 @@ Beispiele für SCHLECHTE Icebreaker (NIEMALS so):
 
     const userPrompt = customPrompt
       ? `Analysiere dieses LinkedIn-Profil und generiere Icebreaker mit folgendem Fokus: ${customPrompt}`
-      : "Analysiere dieses LinkedIn-Profil und generiere 5 personalisierte Icebreaker.";
+      : "Analysiere dieses LinkedIn-Profil und generiere 8 personalisierte Icebreaker.";
 
     // Build message content: image and/or text (both allowed)
     const userContent: any[] = [{ type: "text", text: userPrompt }];
