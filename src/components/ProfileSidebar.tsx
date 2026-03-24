@@ -46,8 +46,8 @@ export function ProfileSidebar({ profiles, activeId, onSelect, onCreate }: Props
               {profiles.map((p) => (
                 <SidebarMenuItem key={p.id}>
                   <SidebarMenuButton
-                    isActive={p.id === activeId}
-                    onClick={() => onSelect(p.id)}
+                    isActive={p.id === activeId && location.pathname === "/"}
+                    onClick={() => { if (location.pathname !== "/") navigate("/"); onSelect(p.id); }}
                   >
                     <User className="h-4 w-4" />
                     <span>{p.name}</span>
