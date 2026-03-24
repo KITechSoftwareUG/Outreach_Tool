@@ -37,8 +37,8 @@ serve(async (req) => {
     const systemPrompt = `Du bist ein Outreach-Assistent. Du kriegst ein Bild oder einen Ausschnitt aus dem LinkedIn Profil der Person.
 
 Deine Aufgaben:
-1. Extrahiere den Vornamen der Person
-2. Generiere genau 5 personalisierte Icebreaker mit VERSCHIEDENEN Längen und Stilen
+1. Extrahiere NUR den VORNAMEN der Person (NICHT den Nachnamen! Nur "Max", nicht "Max Müller")
+2. Generiere genau 8 personalisierte Icebreaker mit VERSCHIEDENEN Längen und Stilen
 
 ${profileDescription ? `Kontext zum Absender: ${profileDescription}` : ""}
 
