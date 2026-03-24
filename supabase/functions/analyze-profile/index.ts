@@ -95,8 +95,7 @@ Beispiele für SCHLECHTE Icebreaker (NICHT so machen):
             type: "function",
             function: {
               name: "extract_profile_data",
-              description:
-                "Extract name and generate icebreakers from a LinkedIn profile.",
+              description: "Extract name and generate icebreakers from a LinkedIn profile.",
               parameters: {
                 type: "object",
                 properties: {
@@ -130,20 +129,20 @@ Beispiele für SCHLECHTE Icebreaker (NICHT so machen):
       if (response.status === 429) {
         return new Response(
           JSON.stringify({ error: "Rate limit erreicht. Bitte versuche es in einer Minute erneut." }),
-          { status: 429, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+          { status: 429, headers: { ...corsHeaders, "Content-Type": "application/json" } },
         );
       }
       if (response.status === 402) {
-        return new Response(
-          JSON.stringify({ error: "AI-Credits aufgebraucht. Bitte lade Credits nach." }),
-          { status: 402, headers: { ...corsHeaders, "Content-Type": "application/json" } }
-        );
+        return new Response(JSON.stringify({ error: "AI-Credits aufgebraucht. Bitte lade Credits nach." }), {
+          status: 402,
+          headers: { ...corsHeaders, "Content-Type": "application/json" },
+        });
       }
 
-      return new Response(
-        JSON.stringify({ error: "AI-Analyse fehlgeschlagen" }),
-        { status: 500, headers: { ...corsHeaders, "Content-Type": "application/json" } }
-      );
+      return new Response(JSON.stringify({ error: "AI-Analyse fehlgeschlagen" }), {
+        status: 500,
+        headers: { ...corsHeaders, "Content-Type": "application/json" },
+      });
     }
 
     const aiData = await response.json();
@@ -151,23 +150,23 @@ Beispiele für SCHLECHTE Icebreaker (NICHT so machen):
 
     if (!toolCall?.function?.arguments) {
       console.error("Unexpected AI response:", JSON.stringify(aiData));
-      return new Response(
-        JSON.stringify({ error: "Unerwartete AI-Antwort" }),
-        { status: 500, headers: { ...corsHeaders, "Content-Type": "application/json" } }
-      );
+      return new Response(JSON.stringify({ error: "Unerwartete AI-Antwort" }), {
+        status: 500,
+        headers: { ...corsHeaders, "Content-Type": "application/json" },
+      });
     }
 
     const parsed = JSON.parse(toolCall.function.arguments);
 
-    return new Response(
-      JSON.stringify({ name: parsed.name, icebreakers: parsed.icebreakers }),
-      { status: 200, headers: { ...corsHeaders, "Content-Type": "application/json" } }
-    );
+    return new Response(JSON.stringify({ name: parsed.name, icebreakers: parsed.icebreakers }), {
+      status: 200,
+      headers: { ...corsHeaders, "Content-Type": "application/json" },
+    });
   } catch (e) {
     console.error("analyze-profile error:", e);
-    return new Response(
-      JSON.stringify({ error: e instanceof Error ? e.message : "Unbekannter Fehler" }),
-      { status: 500, headers: { ...corsHeaders, "Content-Type": "application/json" } }
-    );
+    return new Response(JSON.stringify({ error: e instanceof Error ? e.message : "Unbekannter Fehler" }), {
+      status: 500,
+      headers: { ...corsHeaders, "Content-Type": "application/json" },
+    });
   }
 });
