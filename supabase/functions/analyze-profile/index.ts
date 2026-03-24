@@ -38,7 +38,7 @@ serve(async (req) => {
 
 Deine Aufgaben:
 1. Extrahiere den Vornamen der Person
-2. Generiere genau 5 personalisierte Icebreaker (2-3 Sätze)
+2. Generiere genau 5 personalisierte Icebreaker mit VERSCHIEDENEN Längen und Stilen
 
 ${profileDescription ? `Kontext zum Absender: ${profileDescription}` : ""}
 
@@ -52,21 +52,37 @@ ABSOLUT VERBOTEN:
 - Sätze die mit "und" oder "da" weitergehen wollen
 - Allgemeine Aussagen ohne konkrete Fakten aus dem Profil
 
+VARIATION IST PFLICHT – Die 5 Icebreaker MÜSSEN sich in Länge UND Stil unterscheiden:
+- Icebreaker 1: KURZ (1 Satz) – knackiger Kommentar, direkt auf den Punkt
+- Icebreaker 2: MITTEL (2 Sätze) – Fakt + Anerkennung
+- Icebreaker 3: LÄNGER (2-3 Sätze) – ausführlicher mit mehr Kontext
+- Icebreaker 4: KURZ oder MITTEL – anderer Blickwinkel (z.B. Branche, Firma, Rolle, Standort)
+- Icebreaker 5: MITTEL oder LÄNGER – nochmal ein anderer Aspekt aus dem Profil
+
+Passe den Ton auch ans geschätzte Alter/Seniorität an:
+- Jüngere Personen / weniger Erfahrung → lockerer, "nice", "mega", "läuft bei dir"
+- Erfahrene Personen / Senior-Rollen → respektvoller, "Respekt", "starker Weg", "beeindruckend"
+
 Stil:
 - Respektvoll-anerkennend, auf Augenhöhe
 - Umgangssprachlich aber wertschätzend (Wörter wie "stark", "Respekt", "nice", "mega" nutzen)
-- 2-3 Sätze: Erst konkreter Fakt aus dem Profil, dann direkte Anerkennung/Wertschätzung
 - Konkrete Zahlen/Fakten aus dem Profil (Jahre, Branche, Stadt, Firma, Rolle)
 - Der Icebreaker muss ABGESCHLOSSEN klingen, nicht wie der Anfang von etwas
 - Emojis sparsam erlaubt (💪, 🙂) aber nicht in jedem Icebreaker
 
-Beispiele für PERFEKTE Icebreaker:
+Beispiele für PERFEKTE Icebreaker (verschiedene Längen):
+
+KURZ (1 Satz):
 - "Die Elektrotechnik in Tirol fest im Griff, und das sogar dreifach – Respekt dafür!"
+- "IT-Beratung und GF seit über 10 Jahren in München – nice!"
+
+MITTEL (2 Sätze):
+- "Seit 2018 in der Logistik selbstständig in Hamburg. Bei dir scheint es richtig zu laufen – stark!"
+- "Euer Beitrag zur 3D Lasergravur war ja Input pur! Solche Beiträge schaut man sich doch gerne an. Stark! 🙂"
+
+LÄNGER (2-3 Sätze):
 - "Mega, 35 Jahre GF in der Baubranche mitten in Stuttgart. Da steckt richtig viel Erfahrung drin. Respekt! 💪"
 - "Geschäftsführer bei der Apleona Group ist schon eine starke Rolle, da laufen bestimmt täglich einige komplexe Prozesse zusammen. Respekt 💪🙂"
-- "Seit 2018 in der Logistik selbstständig in Hamburg. Den Schritt zu machen braucht Mut – und bei dir scheint es richtig zu laufen. Stark!"
-- "IT-Beratung und GF seit über 10 Jahren in München. So einen Weg hinzulegen verdient Anerkennung, nice!"
-- "Euer Beitrag zur 3D Lasergravur war ja Input pur! Solche Beiträge schaut man sich doch gerne an. Stark! 🙂"
 
 Beispiele für SCHLECHTE Icebreaker (NIEMALS so):
 - "Wie gehst du mit der Digitalisierung um?" (FRAGE!)
