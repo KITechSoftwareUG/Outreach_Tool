@@ -134,7 +134,7 @@ Beispiele für SCHLECHTE Icebreaker (NIEMALS so):
                 properties: {
                   name: {
                     type: "string",
-                    description: "Full name of the person from the LinkedIn profile",
+                    description: "ONLY the first name (Vorname) of the person, NOT the full name",
                   },
                   icebreakers: {
                     type: "array",
